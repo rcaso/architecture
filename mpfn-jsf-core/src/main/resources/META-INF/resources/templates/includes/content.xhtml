@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+	<ui:composition>
+		<!-- Left side column. contains the logo and sidebar -->
+		<ui:include src="leftMenu.xhtml" />
+		<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            <ui:insert name="page-header">
+            Page Header
+            </ui:insert>
+            <ui:remove>
+            <small>Optional description</small>
+            </ui:remove>
+          </h1>
+          <ol class="breadcrumb">
+          <ui:insert name="page-breadcrumb">
+          
+          </ui:insert>
+          </ol>
+          <ui:remove>
+            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+            <li class="active">Here</li>
+          </ui:remove>
+          
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+	        <!-- Your Page Content Here -->
+	        <script>
+	        	var originalPrimeFacesAjaxUtilsSend = PrimeFaces.ajax.Request.send;
+			PrimeFaces.ajax.Request.send = function(cfg) {
+			    if (!cfg.onerror) {
+			        cfg.onerror = handleErrorSecurity;
+			    }
+			    originalPrimeFacesAjaxUtilsSend.apply(this, arguments);
+			};
+			function handleErrorSecurity(xhr, status, error){
+				if(xhr.status == 401){
+					window.location.href ='<o:url viewId="/#{applicationParameters.urlIndex}"/>';
+					}
+				}
+	        </script>
+			 <ui:insert name="content"/>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+	</ui:composition>
+</html>
