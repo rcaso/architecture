@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/templates/main.xhtml">
+			<ui:define name="page-title">#{msgs['pagina.title']}</ui:define>
+			<ui:define name="page-header">#{msgs['pagina.cabecera']}</ui:define>
+			<ui:define name="page-breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i>#{msgs['pagina.navegacion.inicio']}</a></li>
+            	<li class="active">#{msgs['pagina.navegacion.aqui']}</li>
+			</ui:define>
+			<ui:define name="content">
+				#{msgs['pagina.contenido']}
+			</ui:define>
+	</ui:composition>
+
+</html>
