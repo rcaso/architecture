@@ -1,0 +1,47 @@
+{
+  "subMenus": [
+    {
+      "idMenuOption":1,
+      "orderOption":1,
+      "name":"Aplicaciones",
+      "options":[
+        {
+          "name":"Buscar Aplicaciones",
+          "orderOption":1,
+          "idMenuOption":10,
+          "alias":"bap",
+          "url":"paginas/aplicaciones/buscarAplicaciones.xhtml"
+        }
+        ]
+    },
+    {
+      "idMenuOption":2,
+      "orderOption":2,
+      "name":"Servidores",
+      "options":[
+        {
+          "name":"Buscar Servidores",
+          "orderOption":1,
+          "idMenuOption":11,
+          "alias":"bse",
+          "url":"paginas/servidores/buscarServidores.xhtml"
+        }
+        ]
+    },
+    {
+      "idMenuOption":3,
+      "orderOption":3,
+      "name":"Despliegues",
+      "options":[
+        {
+          "name":"Buscar Despliegues",
+          "orderOption":1,
+          "idMenuOption":12,
+          "alias":"bde",
+          "url":"paginas/despliegues/buscarDespliegues.xhtml"
+        }
+        ]
+    }
+  ],
+  "name": "OSIS INVENTARIO"
+}
