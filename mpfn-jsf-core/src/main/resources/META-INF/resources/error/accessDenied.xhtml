@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/main.xhtml">
+			<ui:define name="page-title">Acceso Denegado</ui:define>
+			<ui:define name="page-header">Acceso Denegado</ui:define>
+			<ui:define name="content">
+				<div class="error-page">
+					<h2 class="headline text-red">No tiene permiso para acceder</h2>
+					<div class="error-content">
+						<p:button outcome="/index" value="Regresar"/>
+					</div>
+				</div>
+			</ui:define>
+	</ui:composition>
+
+</html>
