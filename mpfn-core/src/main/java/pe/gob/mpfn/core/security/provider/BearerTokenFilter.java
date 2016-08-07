@@ -12,6 +12,10 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.representations.AccessToken;
+
 import io.jsonwebtoken.Claims;
 import pe.gob.mpfn.core.security.TokenAuthenticated;
 import pe.gob.mpfn.core.security.contextholder.ThreadLocalContextHolder;
@@ -45,31 +49,10 @@ public class BearerTokenFilter implements ContainerRequestFilter {
 	 */
 	@Override
 	public void filter(ContainerRequestContext ctx) throws IOException {
-		String authHeader = ctx.getHeaderString(HttpHeaders.AUTHORIZATION);
-		if (authHeader == null || !authHeader.startsWith(HeaderValuesType.BEARER.getValue())) {
-			throw new NotAuthorizedException(HeaderValuesType.BEARER.getValue());
+		KeycloakPrincipal<KeycloakSecurityContext> keyCloak = (KeycloakPrincipal<KeycloakSecurityContext>)ctx.getSecurityContext().getUserPrincipal();
+		if(keyCloak != null){
+			createUserTrack(keyCloak.getKeycloakSecurityContext().getToken());
 		}
-		Claims token = parseToken(authHeader);
-		if(token==null){
-			throw new NotAuthorizedException(HeaderValuesType.BEARER.getValue()+" error=\"invalid_token\"");
-		}
-//		validar expiracion
-//		if (verifyToken(token) == false) {
-//			throw new NotAuthorizedException(HeaderValuesType.BEARER.getValue()+" error=\"invalid_token\"");
-//		}
-		//Todo OK coloco los datos en ThreadLocal
-		createUserTrack(token);
-	}
-	
-	/**
-	 * Parses the token.
-	 *
-	 * @param header el header
-	 * @return the claims
-	 */
-	private Claims parseToken(String header) {
-		String token = header.substring(HeaderValuesType.BEARER.getValue().length()+1);
-		return tokenGenerator.getPayLoadToken(token);
 	}
 	
 	/**
@@ -77,23 +60,11 @@ public class BearerTokenFilter implements ContainerRequestFilter {
 	 *
 	 * @param token el token
 	 */
-	private void createUserTrack(Claims token){
+	private void createUserTrack(AccessToken token){
 		UserTrack userTrack = new UserTrack();
-		userTrack.setUserName(token.getSubject());
-		userTrack.setIpAddress((String)token.get(SignatureParameter.getInstance().getUserIP()));
+		userTrack.setUserName(token.getPreferredUsername());
+		userTrack.setIpAddress("255.255.255.255");
 		userTrack.setAuditTime(LocalDateTime.now());
 		ThreadLocalContextHolder.put(RegistryContextHolder.USER_TRACK, userTrack);
 	}
-	
-	/**
-	 * Verify token.
-	 *
-	 * @param token el token
-	 * @return true, en caso de exito
-	 */
-	private boolean verifyToken(String token) {
-		return false;
-	}
-
-
 }

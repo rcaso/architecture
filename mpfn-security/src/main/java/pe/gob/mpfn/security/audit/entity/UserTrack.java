@@ -102,4 +102,10 @@ public class UserTrack implements Serializable {
 		this.menuOption = menuOption;
 	}
 
+	@Override
+	public String toString() {
+		return "UserTrack [userName=" + userName + ", ipAddress=" + ipAddress + ", auditTime=" + auditTime
+				+ ", menuOption=" + menuOption + "]";
+	}
+
 }

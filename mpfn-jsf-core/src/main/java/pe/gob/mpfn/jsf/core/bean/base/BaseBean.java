@@ -49,7 +49,7 @@ public abstract class BaseBean implements Serializable {
 		//Especifico con wildfly
 				jaxrsClient = new ResteasyClientBuilder()
 		                .establishConnectionTimeout(2, TimeUnit.SECONDS)
-		                .socketTimeout(2, TimeUnit.SECONDS)
+//		                .socketTimeout(2, TimeUnit.SECONDS)
 		                .register(headerTokenFilter)
 		                .build();
 	}
