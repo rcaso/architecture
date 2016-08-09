@@ -15,7 +15,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
 
@@ -96,16 +95,17 @@ public class MenuFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		if(req.getServletPath().endsWith("xhtml") && Beans.getInstance(UserInfo.class, false) == null){
 			log.debug("path:"+req.getServletPath()+" No hay session creada se pedira menu de aplicacion");
-			Client jaxrsClient =  new ResteasyClientBuilder()
-	                .establishConnectionTimeout(2, TimeUnit.SECONDS)
-	                .socketTimeout(2, TimeUnit.SECONDS)
-	                .build();
 			KeycloakPrincipal<KeycloakSecurityContext> keyCloak = (KeycloakPrincipal<KeycloakSecurityContext>) req.getUserPrincipal();
-			String userName=keyCloak.getKeycloakSecurityContext().getIdToken().getPreferredUsername();
-			Invocation invocation = jaxrsClient.target(serviceUserMenuUrl+userName+"-"+moduleName).request(MediaType.APPLICATION_JSON).buildGet();
-			String menu = invocation.invoke(String.class);
-			Menu menuUser = new Gson().fromJson(menu, Menu.class);
-			menuProducer.setMenu(menuUser, keyCloak);
+			if(keyCloak != null){
+				Client jaxrsClient =  new ResteasyClientBuilder()
+		                .establishConnectionTimeout(2, TimeUnit.SECONDS)
+		                .build();
+				String userName=keyCloak.getKeycloakSecurityContext().getIdToken().getPreferredUsername();
+				Invocation invocation = jaxrsClient.target(serviceUserMenuUrl+userName+"-"+moduleName).request(MediaType.APPLICATION_JSON).buildGet();
+				String menu = invocation.invoke(String.class);
+				Menu menuUser = new Gson().fromJson(menu, Menu.class);
+				menuProducer.setMenu(menuUser, keyCloak);	
+			}
 		}
 		chain.doFilter(request, response);
 	}
