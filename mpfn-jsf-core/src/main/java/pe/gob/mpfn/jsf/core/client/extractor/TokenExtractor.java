@@ -45,7 +45,9 @@ public class TokenExtractor {
 		if(!authorizationEnabled){
 		//Solo enviamos token de acceso
 			KeycloakPrincipal<KeycloakSecurityContext> keyCloak = (KeycloakPrincipal<KeycloakSecurityContext>) request.getUserPrincipal();
-			token = keyCloak.getKeycloakSecurityContext().getTokenString();	
+			if(keyCloak != null){
+				token = keyCloak.getKeycloakSecurityContext().getTokenString();
+			}
 		} else {
 		//Tenemos que utilizar el api Entitlement para devolver token RPT con informacion de seguridad de recursos
 			KeycloakPrincipal<KeycloakSecurityContext> keyCloak = (KeycloakPrincipal<KeycloakSecurityContext>) request.getUserPrincipal();
