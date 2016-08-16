@@ -92,6 +92,7 @@ public class UserLogoutServlet extends HttpServlet {
 	 */
 	public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.logout();
+		request.getSession().invalidate();
 		response.sendRedirect("/"+moduleName+"/"+urlIndex);
 	}
 
