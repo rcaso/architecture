@@ -101,10 +101,16 @@ public class MenuFilter implements Filter {
 		                .establishConnectionTimeout(2, TimeUnit.SECONDS)
 		                .build();
 				String userName=keyCloak.getKeycloakSecurityContext().getIdToken().getPreferredUsername();
-				Invocation invocation = jaxrsClient.target(serviceUserMenuUrl+userName+"-"+moduleName).request(MediaType.APPLICATION_JSON).buildGet();
+				//format url service menu is
+				// http://portalprueba.mpfn.gob.pe/sad/opciones/l/{user}/s/{app}
+				Invocation invocation = jaxrsClient.target(serviceUserMenuUrl+userName+"/s/"+moduleName).request(MediaType.APPLICATION_JSON).buildGet();
+				try{
 				String menu = invocation.invoke(String.class);
 				Menu menuUser = new Gson().fromJson(menu, Menu.class);
-				menuProducer.setMenu(menuUser, keyCloak);	
+				menuProducer.setMenu(menuUser, keyCloak);
+				} catch(Exception ex){
+					log.error("Error procesando menu :"+ex.getMessage());
+				}
 			}
 		}
 		chain.doFilter(request, response);
