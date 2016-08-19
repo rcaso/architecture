@@ -2,6 +2,7 @@ package pe.gob.mpfn.security.audit.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <ul>
@@ -29,6 +30,9 @@ public class UserTrack implements Serializable {
 	
 	/** La menu option. */
 	private String menuOption;
+	
+	/** La roles. */
+	private List<String> roles;
 
 	/**
 	 * Obtiene user name.
@@ -102,10 +106,31 @@ public class UserTrack implements Serializable {
 		this.menuOption = menuOption;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "UserTrack [userName=" + userName + ", ipAddress=" + ipAddress + ", auditTime=" + auditTime
 				+ ", menuOption=" + menuOption + "]";
+	}
+
+	/**
+	 * Obtiene roles.
+	 *
+	 * @return roles
+	 */
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * Establece el roles.
+	 *
+	 * @param roles el new roles
+	 */
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
 }
