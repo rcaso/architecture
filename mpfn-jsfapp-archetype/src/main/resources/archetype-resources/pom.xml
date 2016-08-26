@@ -27,7 +27,7 @@
 					<plugin>
 		                <groupId>org.wildfly.plugins</groupId>
 		                <artifactId>wildfly-maven-plugin</artifactId>
-		                <version>1.1.0.Alpha10</version>
+		                <version>1.1.0.Alpha11</version>
 		                <configuration>
 		               		<hostname>${server.deploy}</hostname>
 		               		<id>${server}</id>
@@ -51,7 +51,7 @@
 					<plugin>
 		                <groupId>org.wildfly.plugins</groupId>
 		                <artifactId>wildfly-maven-plugin</artifactId>
-		                <version>1.1.0.Alpha10</version>
+		                <version>1.1.0.Alpha11</version>
 		                <configuration>
 		               		<hostname>${server.deploy}</hostname>
 		               		<id>${server}</id>
@@ -112,6 +112,11 @@
 				<version>2.6</version>
 				<configuration>
 					<failOnMissingWebXml>${failOnMissingWebXml}</failOnMissingWebXml>
+					<archive>
+						<manifestEntries>
+							<Dependencies>org.keycloak.keycloak-core</Dependencies>
+						</manifestEntries>
+					</archive>
 					<webResources>
 						<resource>
 						<filtering>true</filtering>
