@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>pe.gob.mpfn</groupId>
   <artifactId>mpfn-jsfapp-archetype</artifactId>
-  <version>0.8</version>
+  <version>0.8.2</version>
   <packaging>maven-archetype</packaging>
   <name>mpfn-jsfapp-archetype</name>
   <description>Estructura base para un proyecto jsf configurado con seguridad Keycloak</description>
